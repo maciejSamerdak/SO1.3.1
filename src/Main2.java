@@ -16,9 +16,7 @@ public class Main2
 		Rekord2[][] tablica = new Rekord2[a][n];		// tablica glowna - wykorzystanie w alg. FIFO
 		Rekord2[][] tab2 = new Rekord2[a][n];			// tablica pomocnicza - algorytm SJF niewywlaszczajacy
 		Rekord2[][] tab3 = new Rekord2[a][n];			// tablica pomocnicza - algorytm SJF wywlaszczajacy
-		Rekord2[][]tablica2 = null;
-		double[] tab4 = new double [n];			// tablica pomocnicza - algorytm RR
-		double[] tab5 = new double [n];			// tablica pomocnicza - algorytm RR
+		Rekord2[][] tablica2 = new Rekord2[a][n];
 		for(int w=0;w<a;w++)
 		{
 			for(int ww=0;ww<n;ww++)
@@ -26,6 +24,7 @@ public class Main2
 				tablica[w][ww] = new Rekord2();
 				tab2[w][ww] = new Rekord2();
 				tab3[w][ww] = new Rekord2();
+				tablica2[w][ww] = new Rekord2();
 			}
 		}
 		Rekord2 r=new Rekord2();
@@ -46,8 +45,8 @@ public class Main2
 		int sdl2;
 		double pom2=0;
 		double[][] xp = new double[4][a];
-		double pom3=0;
-		double total=0;
+		int pom3=0;
+		double total;
 		
 		
 		for (int i=0;i<a;i++)
@@ -55,55 +54,69 @@ public class Main2
 			l=0;
 			m2=0;
 			sr=0;
-			r.czas=0;
-			r.moment=0;
+			r.setCzas(0);
+			r.setMoment(0);
 			int qq=i+1;
-			System.out.printf("Tablica procesow nr " + qq + ":");
-			System.out.println("");
-			System.out.printf("%20s %20s %20s %20s", "Numer procesu", "Dlugosc fazy", "Moment zgloszenia", "Poczatek wykonania");
-			System.out.print("\n");
-			r.dl_fazy=g.nextInt(50)+1;
-			l=l+r.dl_fazy;
-			r.numer=1;
-			tab2[i][0].dl_fazy=r.dl_fazy;
-			tab2[i][0].numer=r.numer;
-			tab2[i][0].moment=r.moment;
-			tab2[i][0].czas=r.czas;
-			tab3[i][0].dl_fazy=r.dl_fazy;
-			tab3[i][0].numer=r.numer;
-			tab3[i][0].moment=r.moment;
-			tab3[i][0].czas=r.czas;
+			System.out.printf("Tablica procesow nr " + qq + ":"+"\n");
+			//System.out.print("\n");
+			System.out.printf("%20s %20s %20s %20s", "Numer procesu", "Dlugosc fazy", "Moment zgloszenia", "Poczatek wykonania"+"\n");
+			//System.out.print("\n");
+			r.setDl_fazy(g.nextInt(50)+1);
+			l=l+r.getDl_fazy();
+			r.setNumer(1);
+			tab2[i][0].setDl_fazy(r.getDl_fazy());
+			tab2[i][0].setNumer(r.getNumer());
+			tab2[i][0].setMoment(r.getMoment());
+			tab2[i][0].setCzas(r.getCzas());
+			tab3[i][0].setDl_fazy(r.getDl_fazy());
+			tab3[i][0].setNumer(r.getNumer());
+			tab3[i][0].setMoment(r.getMoment());
+			tab3[i][0].setCzas(r.getCzas());
+			tablica2[i][0].setDl_fazy(r.getDl_fazy());
+			tablica2[i][0].setNumer(r.getNumer());
+			tablica2[i][0].setMoment(r.getMoment());
+			tablica2[i][0].setCzas(r.getCzas());
 			r.wyswietl();
 			for (int j=1;j<n;j++)
 			{
-				r.numer=j+1;
-				r.dl_fazy=g.nextInt(50)+1;
+				r.setNumer(j+1);
+				r.setDl_fazy(g.nextInt(50)+1);
 				m2=g.nextInt(30)+1;
-				r.moment=r.moment+m2;
-				if(r.moment>l)
+				r.setMoment(r.getMoment()+m2);
+				if(r.getMoment()>l)
 				{
-					r.czas=r.moment;
-					l=r.moment;
+					r.setCzas(r.getMoment());
+					l=r.getMoment();
 				}
 				else
 				{
-					r.czas=l;
+					r.setCzas(l);
 				}
-				l=l+r.dl_fazy;
-				sr=sr+r.czas;
-				tablica[i][j].dl_fazy=r.dl_fazy;
-				tablica[i][j].numer=r.numer;
-				tablica[i][j].moment=r.moment;
-				tablica[i][j].czas=r.czas;
+				l=l+r.getDl_fazy();
+				sr=sr+r.getCzas();
+				tablica[i][j].setDl_fazy(r.getDl_fazy());
+				tablica[i][j].setNumer(r.getNumer());
+				tablica[i][j].setMoment(r.getMoment());
+				tablica[i][j].setCzas(r.getCzas());
 				tablica[i][j].wyswietl();
-				tab2[i][j]=tablica[i][j];
-				tab3[i][j]=tablica[i][j];
+				tab2[i][j].setDl_fazy(tablica[i][j].getDl_fazy());
+				tab2[i][j].setNumer(tablica[i][j].getNumer());
+				tab2[i][j].setMoment(tablica[i][j].getMoment());
+				tab2[i][j].setCzas(tablica[i][j].getCzas());
+				tab3[i][j].setDl_fazy(tablica[i][j].getDl_fazy());
+				tab3[i][j].setNumer(tablica[i][j].getNumer());
+				tab3[i][j].setMoment(tablica[i][j].getMoment());
+				tab3[i][j].setCzas(tablica[i][j].getCzas());
+				tablica2[i][j].setDl_fazy(r.getDl_fazy());
+				tablica2[i][j].setNumer(r.getNumer());
+				tablica2[i][j].setMoment(r.getMoment());
+				tablica2[i][j].setCzas(r.getCzas());
 			}
 			xp[0][i]=sr/n;
 			/* System.out.println("Sredni czas dla FCFS: " + sr/n);
 			System.out.println(); */
 			
-			tablica2=tablica.clone();
+			//tablica2=(Rekord2[][])tablica.clone();
 		}
 			
 			// Algorytm SJF niewywlaszczajacy
@@ -113,7 +126,7 @@ public class Main2
 			
 			for(x=0;x<a;x++)
 			{
-				sdl=tab2[x][0].dl_fazy;
+				sdl=tab2[x][0].getDl_fazy();
 				ssdl=0;
 				ssdl=ssdl+sdl;
 				// System.out.println(sdl);
@@ -122,9 +135,9 @@ public class Main2
 					min=tab2[x][y];
 					zm2=y+1;
 					zmiana=false;
-					while(zm2<=n-1 && sdl>tab2[x][zm2].moment)
+					while(zm2<=n-1 && sdl>tab2[x][zm2].getMoment())
 					{
-						if(tab2[x][zm2].dl_fazy<min.dl_fazy)
+						if(tab2[x][zm2].getDl_fazy()<min.getDl_fazy())
 						{
 							min=tab2[x][zm2];
 							zmiana=true;
@@ -132,7 +145,7 @@ public class Main2
 						}
 						zm2++;
 					}
-					sdl=sdl+min.dl_fazy;
+					sdl=sdl+min.getDl_fazy();
 					// System.out.println(sdl);
 					ssdl=ssdl+sdl;
 					if(zmiana==true)
@@ -158,36 +171,39 @@ public class Main2
 				sdl2=0;
 				for(y=1;y<n;y++)
 				{
-					wyk=tab3[x][y].moment-tab3[x][y-1].moment;
+					wyk=tab3[x][y].getMoment()-tab3[x][y-1].getMoment();
 					while(wyk!=0)
 					{
 						for(zm3=0;zm3<y;zm3++)											// przypisuje min wartosc pierwszemu niezerowemu elementowi
 						{
-							if(tab3[x][zm3].dl_fazy!=0) {min=tab3[x][zm3]; index=zm3; break;}
+							if(tab3[x][zm3].getDl_fazy()!=0)
+								min=tab3[x][zm3]; index=zm3; break;
 						}
 						for(zm3=0;zm3<y;zm3++)
 						{	
-							if(min.dl_fazy>tab3[x][zm3].dl_fazy && tab3[x][zm3].dl_fazy!=0) // szukanie min
+							if(min.getDl_fazy()>tab3[x][zm3].getDl_fazy() && tab3[x][zm3].getDl_fazy()!=0) // szukanie min
 							{
 								min=tab3[x][zm3];
 								index=zm3;
 							}
 						}
-						if(tab3[x][index].dl_fazy==0)
+						if(tab3[x][index].getDl_fazy()==0)
 							break;
-						if(tab3[x][index].dl_fazy<=wyk)
+						if(tab3[x][index].getDl_fazy()<=wyk)
 						{
-							pom=wyk-tab3[x][index].dl_fazy;
-							tab3[x][index].dl_fazy=0;
+							pom=wyk-tab3[x][index].getDl_fazy();
+							tab3[x][index].setDl_fazy(0);
 							wyk=pom;
-							if(tablica[x][index].dl_fazy==tab3[x][index].dl_fazy) { tab3[x][index].czas=sdl2; }
+							if(tablica[x][index].getDl_fazy()==tab3[x][index].getDl_fazy())
+								tab3[x][index].setCzas(sdl2);
 							sdl2=sdl2+(wyk-pom);
 							
 						}
 						else
 						{
-							if(tablica[x][index].dl_fazy==tab3[x][index].dl_fazy) { tab3[x][index].czas=sdl2; }
-							tab3[x][index].dl_fazy=tab3[x][index].dl_fazy-wyk;
+							if(tablica[x][index].getDl_fazy()==tab3[x][index].getDl_fazy())
+								tab3[x][index].setCzas(sdl2);
+							tab3[x][index].setDl_fazy(tab3[x][index].getDl_fazy()-wyk);
 							sdl2=sdl2+wyk;
 							wyk=0;
 						}
@@ -197,23 +213,27 @@ public class Main2
 				{
 					for(int zm4=0;zm4<n;zm4++)
 					{
-						if(tab3[x][zm4].dl_fazy!=0) {min=tab3[x][zm4]; index=zm4; break;}
+						if(tab3[x][zm4].getDl_fazy()!=0){
+							min=tab3[x][zm4]; index=zm4;
+							break;
+							}
 					}
 					for(int zm5=0;zm5<n;zm5++)
 					{	
-						if(min.dl_fazy>tab3[x][zm5].dl_fazy && tab3[x][zm5].dl_fazy!=0) // szukanie min
+						if(min.getDl_fazy()>tab3[x][zm5].getDl_fazy() && tab3[x][zm5].getDl_fazy()!=0) // szukanie min
 						{
 							min=tab3[x][zm5];
 							index=zm5;
 						}
 					}
-					if(tablica[x][index].dl_fazy==tab3[x][index].dl_fazy) { tab3[x][index].czas=sdl2; }
-					sdl2=sdl2+tab3[x][index].dl_fazy;
-					tab3[x][index].dl_fazy=0;
+					if(tablica[x][index].getDl_fazy()==tab3[x][index].getDl_fazy())
+						tab3[x][index].setCzas(sdl2);
+					sdl2=sdl2+tab3[x][index].getDl_fazy();
+					tab3[x][index].setDl_fazy(0);
 				}
 				for(int zm6=0;zm6<n;zm6++)
 				{
-					pom2=pom2+tab3[x][zm6].czas;
+					pom2=pom2+tab3[x][zm6].getCzas();
 				}
 				xp[2][x]=pom2/n;
 				// System.out.println("Sredni czas dla SJF wywlaszczajacego: " + sr);
@@ -224,40 +244,48 @@ public class Main2
 			
 			for(x=0;x<a;x++){
 			 	for(y=0; y<n; y++){
-						if (tablica2[x][y].dl_fazy>k){
-							tablica2[x][y].dl_fazy-=k;
-							tab4[y]=pom3-tablica2[x][y].moment;
+						if (tablica2[x][y].getDl_fazy()>k){
+							tablica2[x][y].setDl_fazy(tablica2[x][y].getDl_fazy()-k);
+							tablica2[x][y].setCzas(pom3-tablica2[x][y].getMoment());
 							pom3+=k;
-							tab5[y]=pom3;
-							System.out.println(x+" "+y+" "+tablica2[x][y].dl_fazy);
+							tablica2[x][y].setMoment(pom3);
+							System.out.println(x+" "+y+" "+tablica2[x][y].getDl_fazy());
 						}
 						else{
-							tab4[y]=pom3-tablica2[x][y].moment;
-							pom3+=tablica2[x][y].dl_fazy;
-							tablica2[x][y]=null;					
+							if(pom3<tablica2[x][y].getMoment()){
+								tablica2[x][y].setCzas(0);
+								pom3=tablica2[x][y].getDl_fazy()+tablica[x][y].getMoment();
+								tablica2[x][y].setDl_fazy(0);
+							}
+							else{	
+								tablica2[x][y].setCzas(pom3-tablica2[x][y].getMoment());
+								pom3+=tablica2[x][y].getDl_fazy();
+								tablica2[x][y].setDl_fazy(0);
+							}
 						}
 				}
 				
 				while(!isFinished(tablica2, x, n)){
 				for(y=0; y<n; y++){
-					if (tablica2[x][y]!=null){
-						if (tablica2[x][y].dl_fazy>k){
-							tablica2[x][y].dl_fazy-=k;
-							tab4[y]+=pom3-tab5[y];
+					if (tablica2[x][y].getDl_fazy()!=0){
+						if (tablica2[x][y].getDl_fazy()>k){
+							tablica2[x][y].setDl_fazy(tablica2[x][y].getDl_fazy()-k);
+							tablica2[x][y].setCzas(tablica2[x][y].getCzas()+pom3-tablica2[x][y].getMoment());
 							pom3+=k;
-							tab5[y]=pom3;
-							System.out.println(x+" "+y+" "+tablica2[x][y].dl_fazy);
+							tablica2[x][y].setMoment(pom3);
+							System.out.println(x+" "+y+" "+tablica2[x][y].getDl_fazy());
 						}
 						else{
-							tab4[y]+=pom3-tab5[y];
-							pom3+=tablica2[x][y].dl_fazy;
-							tablica2[x][y]=null;					
+							tablica2[x][y].setCzas(tablica2[x][y].getCzas()+pom3-tablica2[x][y].getMoment());
+							pom3+=tablica2[x][y].getDl_fazy();
+							tablica2[x][y].setDl_fazy(0);					
 						}
 					}		
 				}
-				for (int i=0; i<n; i++)
-					total+=tab4[i];
 				}
+				total=0;
+				for (int i=0; i<n; i++)
+					total+=tablica2[x][i].getCzas();
 				System.out.println(total);
 				xp[3][x]=total/n;
 			}
@@ -271,14 +299,14 @@ public class Main2
 					System.out.println("Sredni czas dla FCFS: " + xp[0][q]);
 					System.out.println("Sredni czas dla SJF niewywlaszczajacego: " + xp[1][q]);
 					System.out.println("Sredni czas dla SJF wywlaszczajacego: " + xp[2][q]);
-					System.out.println("Œredni czas dla RR dla kwantu czasu = " + k + "ms: " + xp[3][q]);
+					System.out.println("Sredni czas dla RR dla kwantu czasu = " + k + "ms: " + xp[3][q]);
 			}
 	}
 	
 	static boolean isFinished(Rekord2[][] array, int x, int y){
 		int check=0;
 		for (int i=0; i<y; i++)
-			if (array[x][i]==null)
+			if (array[x][i].getDl_fazy()==0)
 				check++;
 		return (check==y);
 	}
