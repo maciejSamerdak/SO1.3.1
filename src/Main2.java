@@ -242,6 +242,8 @@ public class Main2
 			//Algorytm rotacyjny
 			
 			for(x=0;x<a;x++){
+				
+				pom3=0;
 
 				while(!isFinished(tablica2, x, n)){
 				for(y=0; y<n; y++){
@@ -263,8 +265,8 @@ public class Main2
 					}
 					}
 					else{
-						if(isFinished(tablica2, x, y)){
-							pom3+=tablica2[x][y].getMoment();
+						if(isFinished(tablica2, x, y) && tablica[x][y].getMoment()!=0){
+							pom3=tablica2[x][y].getMoment();
 						}
 					}	
 				}
